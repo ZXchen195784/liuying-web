@@ -1,9 +1,7 @@
 // ===== 卡密商店交互（对接易支付） =====
 
 const CARD_TYPES = {
-    monthly:   { name: '月度会员', price: 15,  days: 30,  type: 'monthly' },
-    quarterly: { name: '季度会员', price: 40,  days: 90,  type: 'quarterly' },
-    yearly:    { name: '年度会员', price: 128, days: 365, type: 'yearly' }
+    permanent: { name: '永久会员', price: 8, days: 99999, type: 'permanent' }
 };
 
 let currentBuyType = null;
@@ -21,14 +19,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const orderNo = urlParams.get('order');
     if (orderNo) {
-        // 清除 URL 参数
         history.replaceState(null, '', window.location.pathname);
-        // 查询订单状态
         checkOrderResult(orderNo);
     }
 });
 
-// 加载我的订单列表（已支付的在订单里直接显示卡密）
+// 加载我的订单列表
 async function loadMyOrders() {
     const res = await api('/api/v1/order/my');
     const container = document.getElementById('shopHistory');
@@ -42,7 +38,7 @@ async function loadMyOrders() {
     container.style.display = '';
     list.innerHTML = res.orders.map(o => {
         const statusText = o.status === 1 ? '已支付' : (o.status === 2 ? '已退款' : '待支付');
-        const statusClass = o.status === 1 ? 'unused' : (o.status === 2 ? 'used' : 'used');
+        const statusClass = o.status === 1 ? 'unused' : 'used';
         let keyHtml = '';
         if (o.status >= 1 && o.cardKey) {
             keyHtml = '<div class="shop-history-key">' + escapeHtml(o.cardKey) + '</div>';
@@ -69,7 +65,6 @@ function buyCard(type) {
 
     currentBuyType = type;
 
-    // 重置弹窗状态
     document.getElementById('modalResult').style.display = 'none';
     document.getElementById('modalAlert').innerHTML = '';
     document.getElementById('modalPayLoading').style.display = 'none';
@@ -98,13 +93,11 @@ function closeModal() {
     }
 }
 
-// 确认购买 → 创建订单 → 跳转支付
 async function confirmBuy() {
     if (!currentBuyType) return;
 
     const info = CARD_TYPES[currentBuyType];
     const btn = document.getElementById('modalBuyBtn');
-    const contact = document.getElementById('modalContact').value.trim();
 
     btn.disabled = true;
     btn.textContent = '正在创建订单...';
@@ -112,27 +105,19 @@ async function confirmBuy() {
     const res = await api('/api/v1/order/create', {
         method: 'POST',
         body: {
-            type: info.type,
-            contact: contact || undefined
+            type: info.type
         }
     });
 
     btn.disabled = false;
-    btn.textContent = '确认购买';
+    btn.textContent = '立即购买';
 
     if (res.ok && res.payUrl) {
         currentOrderNo = res.orderNo;
-
-        // 关闭弹窗，跳转到支付页面
         closeModal();
-
-        // 新窗口打开支付页面
         window.open(res.payUrl, '_blank');
-
-        // 开始轮询订单状态
         startPolling(res.orderNo);
     } else if (res.ok && res.qrcode) {
-        // 二维码支付
         currentOrderNo = res.orderNo;
         document.getElementById('modalBuyForm').style.display = 'none';
         document.getElementById('modalPayLoading').style.display = '';
@@ -145,11 +130,9 @@ async function confirmBuy() {
     }
 }
 
-// 轮询订单状态
 function startPolling(orderNo) {
     if (pollTimer) clearInterval(pollTimer);
 
-    // 显示等待弹窗
     document.getElementById('modalBuyForm').style.display = 'none';
     document.getElementById('modalResult').style.display = 'none';
     document.getElementById('modalPayLoading').style.display = '';
@@ -158,7 +141,7 @@ function startPolling(orderNo) {
     let count = 0;
     pollTimer = setInterval(async () => {
         count++;
-        if (count > 120) { // 最多轮询 2 分钟
+        if (count > 120) {
             clearInterval(pollTimer);
             pollTimer = null;
             document.getElementById('modalPayLoading').style.display = 'none';
@@ -170,27 +153,22 @@ function startPolling(orderNo) {
 
         const res = await api('/api/v1/order/query?orderNo=' + orderNo);
         if (res.ok && res.status === 1) {
-            // 支付成功！
             clearInterval(pollTimer);
             pollTimer = null;
 
-            // 显示卡密
             document.getElementById('modalPayLoading').style.display = 'none';
             document.getElementById('modalResult').style.display = '';
             document.getElementById('shopKeyBox').textContent = res.cardKey || '-';
 
-            // 刷新订单列表
             loadMyOrders();
         }
-    }, 2000); // 每 2 秒查一次
+    }, 2000);
 }
 
-// 检查支付完成跳转回来的订单
 async function checkOrderResult(orderNo) {
     const res = await api('/api/v1/order/query?orderNo=' + orderNo);
     if (res.ok) {
         if (res.status === 1) {
-            // 已支付，显示卡密
             currentOrderNo = orderNo;
             document.getElementById('modalBuyForm').style.display = 'none';
             document.getElementById('modalPayLoading').style.display = 'none';
@@ -200,14 +178,12 @@ async function checkOrderResult(orderNo) {
             document.getElementById('shopModal').style.display = 'flex';
             loadMyOrders();
         } else {
-            // 还没支付，开始轮询
             currentOrderNo = orderNo;
             startPolling(orderNo);
         }
     }
 }
 
-// 重新支付
 async function retryPay(orderNo) {
     window.open(API_BASE + '/api/v1/order/pay?orderNo=' + orderNo, '_blank');
     currentOrderNo = orderNo;
@@ -259,7 +235,6 @@ function formatDate(s) {
     } catch { return s; }
 }
 
-// 点击遮罩关闭弹窗
 document.addEventListener('click', (e) => {
     if (e.target.id === 'shopModal') closeModal();
 });
