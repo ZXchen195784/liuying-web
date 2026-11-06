@@ -110,7 +110,17 @@
                             <input type="text" class="form-input" id="modalContact" placeholder="QQ / 微信 / 邮箱">
                         </div>
                         <button class="btn btn-primary btn-block" id="modalBuyBtn" onclick="confirmBuy()">确认购买</button>
-                        <p class="shop-modal-note">购买后卡密将显示在下方，请复制保存</p>
+                        <p class="shop-modal-note">点击购买后跳转到支付页面，支付成功自动显示卡密</p>
+                    </div>
+
+                    <!-- 支付等待 -->
+                    <div id="modalPayLoading" style="display: none;">
+                        <p class="shop-modal-text">等待支付完成...</p>
+                        <img id="modalQrcode" src="" alt="二维码" style="display:none; margin:16px auto; width:240px; border-radius:8px;">
+                        <div style="text-align:center; padding:20px;">
+                            <div class="shop-spinner"></div>
+                            <p class="shop-modal-note">请在支付页面完成付款<br>支付成功后自动显示卡密</p>
+                        </div>
                     </div>
 
                     <!-- 购买成功：显示卡密 -->
