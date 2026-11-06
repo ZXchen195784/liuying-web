@@ -1,0 +1,227 @@
+/* ===== 帮助页 ===== */
+.help-section {
+    min-height: 80vh;
+    padding-bottom: 80px;
+}
+
+/* 快速导航 */
+.help-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 48px;
+}
+
+.help-nav-link {
+    display: inline-block;
+    padding: 8px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: var(--transition);
+}
+
+.help-nav-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+}
+
+/* 帮助区块 */
+.help-block {
+    max-width: 800px;
+    margin: 0 auto 48px;
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    scroll-margin-top: 80px;
+}
+
+.help-block-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.help-content {
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+.help-content p {
+    margin-bottom: 12px;
+}
+
+.help-content a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.help-content a:hover {
+    text-decoration: underline;
+}
+
+/* 步骤列表 */
+.help-steps {
+    list-style: none;
+    counter-reset: step;
+    padding: 0;
+}
+
+.help-steps li {
+    counter-increment: step;
+    padding-left: 48px;
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.help-steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 32px;
+    height: 32px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.help-steps li strong {
+    display: block;
+    color: var(--text-primary);
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.help-steps li p {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.help-steps code {
+    background: var(--bg-tertiary);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    color: var(--accent);
+}
+
+/* 普通列表 */
+.help-list {
+    list-style: none;
+    padding: 0;
+}
+
+.help-list li {
+    padding: 8px 0 8px 20px;
+    position: relative;
+    color: var(--text-secondary);
+}
+
+.help-list li::before {
+    content: '\2022';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 18px;
+    line-height: 1;
+}
+
+.help-list li strong {
+    color: var(--text-primary);
+}
+
+/* 提示框 */
+.help-tip {
+    background: rgba(79, 156, 249, 0.08);
+    border-left: 3px solid var(--accent);
+    padding: 12px 16px;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    margin: 16px 0;
+    font-size: 14px;
+}
+
+.help-tip strong {
+    color: var(--accent);
+}
+
+/* FAQ 折叠 */
+.faq-item {
+    border-bottom: 1px solid var(--border);
+}
+
+.faq-item:last-child {
+    border-bottom: none;
+}
+
+.faq-question {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-size: 15px;
+    font-weight: 600;
+    padding: 16px 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: inherit;
+    transition: var(--transition);
+}
+
+.faq-question:hover {
+    color: var(--accent);
+}
+
+.faq-icon {
+    font-size: 20px;
+    font-weight: 400;
+    transition: transform 0.3s;
+    color: var(--text-secondary);
+}
+
+.faq-item.open .faq-icon {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.faq-item.open .faq-answer {
+    max-height: 200px;
+    padding-bottom: 16px;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 768px) {
+    .help-block {
+        padding: 24px 16px;
+    }
+
+    .help-steps li {
+        padding-left: 40px;
+    }
+}

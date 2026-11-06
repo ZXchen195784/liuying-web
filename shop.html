@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>卡密商店 - liuying Launcher</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/shop.css">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="favicon.svg" alt="logo" class="nav-logo-icon">
+                <span>liuying Launcher</span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="nav-link">首页</a>
+                <a href="download.html" class="nav-link">下载</a>
+                <a href="shop.html" class="nav-link active">卡密商店</a>
+                <a href="help.html" class="nav-link">帮助</a>
+                <a href="account.html" class="nav-link nav-btn" id="navAccount">登录</a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="菜单">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <section class="shop-section" style="padding-top: 120px;">
+        <div class="container">
+            <h1 class="section-title">卡密商店</h1>
+            <p class="shop-subtitle">购买卡密后，在启动器或注册页面输入即可激活账号</p>
+
+            <div class="shop-grid">
+                <!-- 月卡 -->
+                <div class="shop-card">
+                    <div class="shop-card-badge">月卡</div>
+                    <h3 class="shop-card-title">月度会员</h3>
+                    <div class="shop-card-price"><span class="price-symbol">&yen;</span><span class="price-num">15</span></div>
+                    <ul class="shop-card-features">
+                        <li>30 天使用权限</li>
+                        <li>正版微软账号登录</li>
+                        <li>所有版本游戏下载</li>
+                        <li>社区技术支持</li>
+                    </ul>
+                    <button class="btn btn-primary btn-block" onclick="buyCard('monthly')">立即购买</button>
+                </div>
+
+                <!-- 季卡 -->
+                <div class="shop-card shop-card-popular">
+                    <div class="shop-card-badge popular">热门</div>
+                    <h3 class="shop-card-title">季度会员</h3>
+                    <div class="shop-card-price"><span class="price-symbol">&yen;</span><span class="price-num">40</span></div>
+                    <ul class="shop-card-features">
+                        <li>90 天使用权限</li>
+                        <li>正版微软账号登录</li>
+                        <li>所有版本游戏下载</li>
+                        <li>优先技术支持</li>
+                        <li>节省 &yen;5</li>
+                    </ul>
+                    <button class="btn btn-primary btn-block" onclick="buyCard('quarterly')">立即购买</button>
+                </div>
+
+                <!-- 年卡 -->
+                <div class="shop-card">
+                    <div class="shop-card-badge">超值</div>
+                    <h3 class="shop-card-title">年度会员</h3>
+                    <div class="shop-card-price"><span class="price-symbol">&yen;</span><span class="price-num">128</span></div>
+                    <ul class="shop-card-features">
+                        <li>365 天使用权限</li>
+                        <li>正版微软账号登录</li>
+                        <li>所有版本游戏下载</li>
+                        <li>专属技术支持</li>
+                        <li>优先体验新功能</li>
+                        <li>节省 &yen;52</li>
+                    </ul>
+                    <button class="btn btn-primary btn-block" onclick="buyCard('yearly')">立即购买</button>
+                </div>
+            </div>
+
+            <!-- 购买弹窗 -->
+            <div class="shop-modal" id="shopModal" style="display: none;">
+                <div class="shop-modal-content">
+                    <button class="shop-modal-close" onclick="closeModal()">&times;</button>
+                    <h2 id="modalTitle">购买卡密</h2>
+                    <div id="modalAlert"></div>
+
+                    <!-- 未登录：提示登录 -->
+                    <div id="modalNeedLogin">
+                        <p class="shop-modal-text">购买卡密需要先登录账号</p>
+                        <a href="account.html" class="btn btn-primary btn-block">前往登录</a>
+                    </div>
+
+                    <!-- 已登录：显示购买信息 -->
+                    <div id="modalBuyForm" style="display: none;">
+                        <div class="shop-modal-info">
+                            <div class="shop-modal-row">
+                                <span>类型</span>
+                                <span id="modalType">-</span>
+                            </div>
+                            <div class="shop-modal-row">
+                                <span>价格</span>
+                                <span id="modalPrice" class="shop-price-text">-</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">联系方式 <span class="optional">(可选)</span></label>
+                            <input type="text" class="form-input" id="modalContact" placeholder="QQ / 微信 / 邮箱">
+                        </div>
+                        <button class="btn btn-primary btn-block" id="modalBuyBtn" onclick="confirmBuy()">确认购买</button>
+                        <p class="shop-modal-note">购买后卡密将显示在下方，请复制保存</p>
+                    </div>
+
+                    <!-- 购买成功：显示卡密 -->
+                    <div id="modalResult" style="display: none;">
+                        <div class="shop-key-display">
+                            <label class="form-label">你的卡密</label>
+                            <div class="shop-key-box" id="shopKeyBox">-</div>
+                            <button class="btn btn-outline btn-block" onclick="copyKey()">复制卡密</button>
+                        </div>
+                        <p class="shop-modal-note">请妥善保管卡密，遗失不补。卡密可在注册时使用。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 已购卡密列表 -->
+            <div class="shop-history" id="shopHistory" style="display: none;">
+                <h2 class="shop-history-title">我的卡密</h2>
+                <div id="shopHistoryList"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 liuying Launcher. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/shop.js"></script>
+</body>
+</html>

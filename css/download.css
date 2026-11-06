@@ -1,0 +1,126 @@
+.download-section {
+    min-height: 80vh;
+}
+
+.download-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 18px;
+    margin-bottom: 48px;
+    margin-top: -32px;
+}
+
+.download-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    max-width: 800px;
+    margin: 0 auto 48px;
+}
+
+.download-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 40px 32px;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.download-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.download-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+.download-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.download-info {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.download-size {
+    color: var(--accent);
+    font-size: 14px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.download-requirements {
+    text-align: left;
+    color: var(--text-secondary);
+    font-size: 14px;
+    list-style: none;
+    padding: 0;
+}
+
+.download-requirements li {
+    padding: 6px 0;
+    padding-left: 24px;
+    position: relative;
+}
+
+.download-requirements li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--green);
+    font-weight: bold;
+}
+
+.download-meta {
+    margin-top: 12px;
+}
+
+.download-meta p {
+    font-size: 12px;
+    color: var(--text-muted);
+    word-break: break-all;
+}
+
+.download-notes {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.download-notes h3 {
+    font-size: 18px;
+    margin-bottom: 16px;
+}
+
+.download-notes ul {
+    list-style: none;
+    padding: 0;
+}
+
+.download-notes li {
+    color: var(--text-secondary);
+    font-size: 14px;
+    padding: 6px 0;
+    padding-left: 20px;
+    position: relative;
+}
+
+.download-notes li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+}
+
+@media (max-width: 768px) {
+    .download-grid {
+        grid-template-columns: 1fr;
+    }
+}

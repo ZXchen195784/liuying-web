@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>帮助 - liuying Launcher</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/help.css">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="favicon.svg" alt="logo" class="nav-logo-icon">
+                <span>liuying Launcher</span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="nav-link">首页</a>
+                <a href="download.html" class="nav-link">下载</a>
+                <a href="shop.html" class="nav-link">卡密商店</a>
+                <a href="help.html" class="nav-link active">帮助</a>
+                <a href="account.html" class="nav-link nav-btn" id="navAccount">登录</a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="菜单">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <section class="help-section" style="padding-top: 120px;">
+        <div class="container">
+            <h1 class="section-title">帮助中心</h1>
+
+            <!-- 快速导航 -->
+            <div class="help-nav">
+                <a href="#install" class="help-nav-link">安装教程</a>
+                <a href="#login" class="help-nav-link">账号登录</a>
+                <a href="#ms-login" class="help-nav-link">微软正版登录</a>
+                <a href="#download" class="help-nav-link">下载游戏</a>
+                <a href="#faq" class="help-nav-link">常见问题</a>
+                <a href="#contact" class="help-nav-link">联系我们</a>
+            </div>
+
+            <!-- 安装教程 -->
+            <div class="help-block" id="install">
+                <h2 class="help-block-title">安装教程</h2>
+                <ol class="help-steps">
+                    <li>
+                        <strong>下载启动器</strong>
+                        <p>前往 <a href="download.html">下载页面</a>，点击下载按钮获取最新版本的启动器压缩包。</p>
+                    </li>
+                    <li>
+                        <strong>解压文件</strong>
+                        <p>将下载的 .zip 压缩包解压到任意目录（建议不要放在 C 盘系统目录下）。</p>
+                    </li>
+                    <li>
+                        <strong>运行启动器</strong>
+                        <p>双击 <code>PCL CE.exe</code> 运行启动器。首次运行可能需要稍等片刻初始化。</p>
+                    </li>
+                    <li>
+                        <strong>注册/登录</strong>
+                        <p>如果没有账号，点击启动器内的注册按钮，填写用户名、密码、邮箱并输入验证码完成注册。如有卡密可在注册时填写。</p>
+                    </li>
+                    <li>
+                        <strong>开始游戏</strong>
+                        <p>登录后选择游戏版本，点击下载，下载完成后即可启动游戏。</p>
+                    </li>
+                </ol>
+            </div>
+
+            <!-- 账号登录 -->
+            <div class="help-block" id="login">
+                <h2 class="help-block-title">账号登录</h2>
+                <div class="help-content">
+                    <p>启动器支持两种账号系统：</p>
+                    <ul class="help-list">
+                        <li><strong>liuying 账号</strong>：在官网或启动器中注册的账号，使用用户名和密码登录。需要有效的卡密才能激活使用。</li>
+                        <li><strong>微软正版账号</strong>：使用你的 Minecraft 正版账号登录，支持浏览器自动授权。</li>
+                    </ul>
+                    <p>如果忘记密码，可以在 <a href="account.html">账号页面</a> 点击"忘记密码"通过邮箱重置。</p>
+                </div>
+            </div>
+
+            <!-- 微软正版登录 -->
+            <div class="help-block" id="ms-login">
+                <h2 class="help-block-title">微软正版登录</h2>
+                <div class="help-content">
+                    <p>微软正版账号登录流程：</p>
+                    <ol class="help-steps">
+                        <li>
+                            <strong>点击微软登录</strong>
+                            <p>在启动器登录界面选择"微软账号登录"。</p>
+                        </li>
+                        <li>
+                            <strong>浏览器自动打开</strong>
+                            <p>系统会自动打开浏览器，跳转到微软登录页面。</p>
+                        </li>
+                        <li>
+                            <strong>登录微软账号</strong>
+                            <p>在浏览器中输入你的微软账号和密码，完成登录。</p>
+                        </li>
+                        <li>
+                            <strong>授权确认</strong>
+                            <p>浏览器会显示授权确认页面，点击"是"授权。</p>
+                        </li>
+                        <li>
+                            <strong>自动完成</strong>
+                            <p>浏览器页面显示登录成功后，启动器会自动接收回调，弹窗自动关闭，登录完成。</p>
+                        </li>
+                    </ol>
+                    <div class="help-tip">
+                        <strong>提示：</strong> 如果浏览器没有自动打开，请检查弹窗中显示的地址，手动复制到浏览器中打开。
+                    </div>
+                </div>
+            </div>
+
+            <!-- 下载游戏 -->
+            <div class="help-block" id="download">
+                <h2 class="help-block-title">下载游戏</h2>
+                <div class="help-content">
+                    <p>登录后可以在主界面选择 Minecraft 版本：</p>
+                    <ul class="help-list">
+                        <li><strong>原版</strong>：Minecraft 官方版本，直接选择版本号下载。</li>
+                        <li><strong>Forge</strong>：安装 Forge 模组加载器后可运行模组。</li>
+                        <li><strong>Fabric</strong>：安装 Fabric 模组加载器。</li>
+                        <li><strong>OptiFine</strong>：光影和优化模组。</li>
+                    </ul>
+                    <p>选择版本和加载器后，点击"开始下载"即可自动下载所需文件。</p>
+                </div>
+            </div>
+
+            <!-- 常见问题 -->
+            <div class="help-block" id="faq">
+                <h2 class="help-block-title">常见问题</h2>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        启动器无法连接到服务器？
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>请检查网络连接是否正常。如果使用代理，请确保代理设置正确。服务器可能偶尔维护，请稍后再试。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        下载游戏速度很慢？
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>可以在启动器设置中切换下载源。如果在国内，建议使用 BMCLAPI 源以获得更快的下载速度。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        微软登录页面空白/报错？
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>请确保使用主流浏览器（Chrome、Edge）。如果页面空白，尝试清除浏览器缓存或使用无痕模式重新登录。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        卡密怎么用？
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>卡密在注册账号时填入"卡密"字段即可激活。已注册的账号可以在启动器内点击"激活卡密"延长使用期限。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        提示"Java 未找到"？
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Minecraft 需要 Java 运行环境。启动器通常会自动下载 Java，如果没有自动下载，请手动安装 Java 17 或以上版本。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        游戏崩溃怎么办？
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>查看启动器日志（设置 &rarr; 日志），常见的崩溃原因包括：内存不足、模组冲突、Java 版本不匹配。可以尝试减少内存分配或检查模组兼容性。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        如何修改头像？
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>登录后在 <a href="account.html">个人中心</a> 点击"上传头像"，选择 PNG 格式的图片（300KB 以内）上传即可。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 联系我们 -->
+            <div class="help-block" id="contact">
+                <h2 class="help-block-title">联系我们</h2>
+                <div class="help-content">
+                    <p>如果以上内容没有解决你的问题，可以通过以下方式联系我们：</p>
+                    <ul class="help-list">
+                        <li><strong>QQ 群</strong>：加入官方交流群获取帮助</li>
+                        <li><strong>邮箱</strong>：发送邮件描述你的问题</li>
+                        <li><strong>官网</strong>：<a href="index.html">liuying.today</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 liuying Launcher. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/help.js"></script>
+</body>
+</html>

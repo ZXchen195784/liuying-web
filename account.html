@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>账号 - liuying Launcher</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/account.css">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="favicon.svg" alt="logo" class="nav-logo-icon">
+                <span>liuying Launcher</span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="nav-link">首页</a>
+                <a href="download.html" class="nav-link">下载</a>
+                <a href="shop.html" class="nav-link">卡密商店</a>
+                <a href="help.html" class="nav-link">帮助</a>
+                <a href="account.html" class="nav-link nav-btn active" id="navAccount">登录</a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="菜单">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <section class="account-section" style="padding-top: 120px;">
+        <div class="container">
+            <!-- 登录/注册 -->
+            <div class="auth-card" id="authCard">
+                <!-- 登录 -->
+                <div class="auth-form" id="loginForm">
+                    <h2 class="auth-title">登录账号</h2>
+                    <div id="loginAlert"></div>
+                    <div class="form-group">
+                        <label class="form-label">用户名</label>
+                        <input type="text" class="form-input" id="loginName" placeholder="输入你的用户名">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">密码</label>
+                        <input type="password" class="form-input" id="loginPass" placeholder="输入密码">
+                    </div>
+                    <button class="btn btn-primary btn-block" id="loginBtn" onclick="doLogin()">登录</button>
+                    <p class="auth-switch">
+                        还没有账号？<a href="#" onclick="showRegister(); return false;">注册</a><br>
+                        <a href="#" onclick="showReset(); return false;">忘记密码？</a>
+                    </p>
+                </div>
+
+                <!-- 注册 -->
+                <div class="auth-form" id="registerForm" style="display: none;">
+                    <h2 class="auth-title">注册账号</h2>
+                    <div id="registerAlert"></div>
+                    <div class="form-group">
+                        <label class="form-label">用户名</label>
+                        <input type="text" class="form-input" id="regName" placeholder="3-16 位字母数字下划线">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">密码</label>
+                        <input type="password" class="form-input" id="regPass" placeholder="设置密码">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">邮箱</label>
+                        <input type="email" class="form-input" id="regEmail" placeholder="用于验证和找回密码">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">验证码</label>
+                        <div class="code-row">
+                            <input type="text" class="form-input" id="regCode" placeholder="邮箱验证码">
+                            <button class="btn btn-outline" id="sendCodeBtn" onclick="sendCode()">发送</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">卡密 <span class="optional">(可选)</span></label>
+                        <input type="text" class="form-input" id="regCardKey" placeholder="如有卡密请填写">
+                    </div>
+                    <button class="btn btn-primary btn-block" id="registerBtn" onclick="doRegister()">注册</button>
+                    <p class="auth-switch">
+                        已有账号？<a href="#" onclick="showLogin(); return false;">登录</a>
+                    </p>
+                </div>
+
+                <!-- 重置密码 -->
+                <div class="auth-form" id="resetForm" style="display: none;">
+                    <h2 class="auth-title">重置密码</h2>
+                    <div id="resetAlert"></div>
+                    <div class="form-group">
+                        <label class="form-label">用户名</label>
+                        <input type="text" class="form-input" id="resetName" placeholder="输入你的用户名">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">邮箱</label>
+                        <input type="email" class="form-input" id="resetEmail" placeholder="注册时填写的邮箱">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">验证码</label>
+                        <div class="code-row">
+                            <input type="text" class="form-input" id="resetCode" placeholder="邮箱验证码">
+                            <button class="btn btn-outline" id="resetSendBtn" onclick="sendResetCode()">发送</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">新密码</label>
+                        <input type="password" class="form-input" id="resetPass" placeholder="设置新密码">
+                    </div>
+                    <button class="btn btn-primary btn-block" onclick="doReset()">重置密码</button>
+                    <p class="auth-switch">
+                        <a href="#" onclick="showLogin(); return false;">返回登录</a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- 个人中心 -->
+            <div class="profile-card" id="profileCard" style="display: none;">
+                <h2 class="auth-title">个人中心</h2>
+                <div class="profile-header">
+                    <div class="profile-avatar" id="profileAvatar">👤</div>
+                    <div class="profile-info">
+                        <h3 id="profileName">用户名</h3>
+                        <p id="profileCreated">注册时间：-</p>
+                        <p id="profileLastLogin">上次登录：-</p>
+                    </div>
+                </div>
+                <div class="profile-actions">
+                    <button class="btn btn-outline" onclick="showAvatarUpload()">上传头像</button>
+                    <button class="btn btn-outline" onclick="showChangePass()">修改密码</button>
+                    <button class="btn btn-outline" style="color: var(--red);" onclick="doLogout()">退出登录</button>
+                </div>
+
+                <!-- 头像上传 -->
+                <div class="sub-form" id="avatarForm" style="display: none;">
+                    <h4>上传头像</h4>
+                    <div class="form-group">
+                        <label class="form-label">选择图片 (PNG, &lt;300KB)</label>
+                        <input type="file" class="form-input" id="avatarFile" accept="image/png,image/jpeg">
+                    </div>
+                    <button class="btn btn-primary btn-block" onclick="uploadAvatar()">上传</button>
+                </div>
+
+                <!-- 修改密码 -->
+                <div class="sub-form" id="passForm" style="display: none;">
+                    <h4>修改密码</h4>
+                    <div class="form-group">
+                        <label class="form-label">旧密码</label>
+                        <input type="password" class="form-input" id="oldPass" placeholder="当前密码">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">新密码</label>
+                        <input type="password" class="form-input" id="newPass" placeholder="新密码">
+                    </div>
+                    <button class="btn btn-primary btn-block" onclick="changePass()">修改</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 liuying Launcher. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/account.js"></script>
+</body>
+</html>
