@@ -1,5 +1,5 @@
 // ===== API 配置 =====
-const API_BASE = 'https://103.217.192.105:20022';
+const API_BASE = 'https://api.liuying.today';
 
 // ===== Token 管理 =====
 function getToken() {
