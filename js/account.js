@@ -96,7 +96,7 @@ async function doLogin() {
 
     const res = await api('/api/v1/login', {
         method: 'POST',
-        body: { username: name, password: pass }
+        body: { name: name, password: pass }
     });
 
     btn.disabled = false;
@@ -136,7 +136,7 @@ async function sendCode() {
 
     const res = await api('/api/v1/email/send', {
         method: 'POST',
-        body: { email: email, type: 'register' }
+        body: { email: email, purpose: 'register' }
     });
 
     if (res.ok) {
@@ -178,7 +178,7 @@ async function doRegister() {
     btn.disabled = true;
     btn.textContent = '注册中...';
 
-    const body = { username: name, password: pass, email: email, code: code };
+    const body = { name: name, password: pass, email: email, code: code };
     if (cardKey) body.cardKey = cardKey;
 
     const res = await api('/api/v1/register', {
@@ -224,7 +224,7 @@ async function sendResetCode() {
 
     const res = await api('/api/v1/email/send', {
         method: 'POST',
-        body: { email: email, type: 'reset', username: name }
+        body: { email: email, purpose: 'reset', name: name }
     });
 
     if (res.ok) {
@@ -258,7 +258,7 @@ async function doReset() {
 
     const res = await api('/api/v1/password/reset', {
         method: 'POST',
-        body: { username: name, email: email, code: code, newPassword: pass }
+        body: { name: name, email: email, code: code, newPassword: pass }
     });
 
     if (res.ok) {
@@ -343,6 +343,7 @@ async function changePass() {
         method: 'POST',
         body: { oldPassword: oldPass, newPassword: newPass }
     });
+
 
     if (res.ok) {
         alert('密码修改成功');
