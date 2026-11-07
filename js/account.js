@@ -1,5 +1,37 @@
 // ===== 账号页交互逻辑 =====
 
+// 获取浏览器设备指纹（作为 HWID 的网页端替代）
+function getBrowserHwid() {
+    try {
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+        ctx.textBaseline = 'top';
+        ctx.font = '14px Arial';
+        ctx.fillText('liuying-hwid-fingerprint', 2, 2);
+        var dataUrl = canvas.toDataURL();
+
+        var parts = [
+            navigator.userAgent || '',
+            navigator.language || '',
+            screen.width + 'x' + screen.height || '',
+            new Date().getTimezoneOffset().toString(),
+            dataUrl
+        ];
+
+        // 简单 hash
+        var str = parts.join('|');
+        var hash = 0;
+        for (var i = 0; i < str.length; i++) {
+            var c = str.charCodeAt(i);
+            hash = ((hash << 5) - hash) + c;
+            hash = hash & hash;
+        }
+        return 'web_' + Math.abs(hash).toString(16) + '_' + str.length;
+    } catch (e) {
+        return 'web_unknown';
+    }
+}
+
 // 页面加载时检查登录状态
 document.addEventListener('DOMContentLoaded', async () => {
     const token = getToken();
@@ -96,7 +128,7 @@ async function doLogin() {
 
     const res = await api('/api/v1/login', {
         method: 'POST',
-        body: { name: name, password: pass }
+        body: { name: name, password: pass, hwid: getBrowserHwid() }
     });
 
     btn.disabled = false;
@@ -178,7 +210,7 @@ async function doRegister() {
     btn.disabled = true;
     btn.textContent = '注册中...';
 
-    const body = { name: name, password: pass, email: email, code: code };
+    const body = { name: name, password: pass, email: email, code: code, hwid: getBrowserHwid() };
     if (cardKey) body.cardKey = cardKey;
 
     const res = await api('/api/v1/register', {
